@@ -1,7 +1,7 @@
 ---
 title: Image & Video SEO
 description: Best practices for optimizing images and videos for Google Search, Google Images, and video search results.
-version: 1.0.0
+version: 2.0.0
 ---
 
 # SEO: Image & Video SEO

@@ -1,7 +1,7 @@
 ---
 title: SEO Meta Tags & Open Graph
-description: Rules for implementing title tags, meta descriptions, Open Graph, and Twitter Card markup.
-version: 1.0.0
+description: Rules for implementing title tags, meta descriptions, Open Graph, Twitter Card markup, Google Discover optimization, and title link control.
+version: 2.0.0
 ---
 
 # SEO: Meta Tags & Open Graph
@@ -153,6 +153,35 @@ export const metadata = {
 ```
 
 > Google recommends showing a visible date on the page that matches the structured data. Don't change `dateModified` without meaningful content changes.
+
+### 10. Google Discover Optimization
+To be eligible for [Google Discover](https://developers.google.com/search/docs/appearance/google-discover):
+
+- Use high-quality, compelling images at least **1200px wide**.
+- Enable large image previews with the `max-image-preview` meta tag.
+- Create timely, engaging content (Discover favors trending topics).
+
+```html
+<!-- Required for Google Discover eligibility -->
+<meta name="robots" content="max-image-preview:large" />
+```
+
+> **Note:** Without `max-image-preview:large`, Google may not show your content with large image thumbnails in Discover.
+
+### 11. Title Link Best Practices
+Per [Google's title link documentation](https://developers.google.com/search/docs/appearance/title-link), Google may rewrite your `<title>` tag in SERPs. To prevent unwanted rewrites:
+
+- Make titles descriptive and concise (under 60 characters).
+- Don't use keyword-stuffed, boilerplate, or vague titles.
+- Don't use the same title for multiple pages.
+- Accurately reflect the page content.
+- Include the brand name at the end, not the beginning.
+
+### 12. Theme Color
+- Use the `theme-color` meta tag for browser UI customization.
+
+```html
+<meta name="theme-color" content="#1a1a2e" />
 
 ## Verification
 - **Google SERP preview:** Use [mangools.com/free-seo-tools/serp-simulator](https://mangools.com/free-seo-tools/serp-simulator) to preview how the title and description appear.

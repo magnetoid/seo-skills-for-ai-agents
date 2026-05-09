@@ -1,7 +1,7 @@
 ---
 title: Advanced SEO Schema & Snippets
-description: Guidelines for implementing JSON-LD structured data and optimizing content for Featured Snippets.
-version: 1.0.0
+description: Guidelines for implementing JSON-LD structured data, optimizing for Featured Snippets, and comprehensive schema coverage.
+version: 2.0.0
 ---
 
 # Advanced SEO: Schema & Snippets
@@ -166,6 +166,94 @@ below after some background context...</p>
   - Create a logical site hierarchy.
   - Ensure important pages are linked from navigation.
   - Use `BreadcrumbList` schema to define page hierarchy.
+
+### 7. Organization Schema
+Add `Organization` schema on your homepage for Knowledge Panel eligibility:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Example Corp",
+  "url": "https://example.com",
+  "logo": "https://example.com/logo.png",
+  "description": "We help developers build SEO-optimized web applications.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-555-123-4567",
+    "contactType": "customer service"
+  },
+  "sameAs": [
+    "https://twitter.com/examplecorp",
+    "https://www.linkedin.com/company/examplecorp",
+    "https://www.facebook.com/examplecorp"
+  ]
+}
+</script>
+```
+
+### 8. Event Schema
+Use `Event` structured data for event pages:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Tech SEO Conference 2025",
+  "startDate": "2025-06-15T09:00:00-07:00",
+  "endDate": "2025-06-15T17:00:00-07:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Convention Center",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Main St",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "postalCode": "94105",
+      "addressCountry": "US"
+    }
+  },
+  "image": "https://example.com/events/tech-seo-conf.jpg",
+  "description": "Annual conference covering the latest in technical SEO.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://example.com/events/tech-seo-conf/tickets",
+    "price": "199.00",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2025-01-01"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Example Corp",
+    "url": "https://example.com"
+  }
+}
+</script>
+```
+
+### 9. Speakable Schema (Voice Search)
+Mark content as suitable for text-to-speech with `speakable`:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What is Technical SEO?",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-summary", ".key-points"]
+  },
+  "url": "https://example.com/blog/what-is-technical-seo"
+}
+</script>
+```
 
 ## Verification
 - **JSON-LD validation:** Paste output into [Google Rich Results Test](https://search.google.com/test/rich-results) or [Schema.org Validator](https://validator.schema.org/).

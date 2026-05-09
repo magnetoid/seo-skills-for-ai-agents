@@ -1,7 +1,7 @@
 ---
 title: Ecommerce SEO
 description: Best practices for ecommerce URL structures, pagination, faceted navigation, and Product structured data.
-version: 1.0.0
+version: 2.0.0
 ---
 
 # SEO: Ecommerce Operations

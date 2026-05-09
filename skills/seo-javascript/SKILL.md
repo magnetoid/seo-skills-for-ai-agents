@@ -1,7 +1,7 @@
 ---
 title: JavaScript SEO
-description: Rules for making JavaScript-rendered content crawlable and indexable by Google, covering SPAs, SSR, History API, soft 404s, and Web Components.
-version: 1.0.0
+description: Rules for making JavaScript-rendered content crawlable and indexable by Google, covering SPAs, SSR, History API, soft 404s, Web Components, and dynamic rendering.
+version: 2.0.0
 ---
 
 # SEO: JavaScript SEO
@@ -147,6 +147,15 @@ customElements.define('my-card', MyCard);
 - Don't lazy-load above-the-fold content or critical SEO content.
 - Use native `loading="lazy"` on images — Google supports it.
 - For infinite scroll, ensure items have proper `<a href>` links so Google can discover all pages.
+
+### 8. Dynamic Rendering (Deprecated Workaround)
+Google previously recommended dynamic rendering as a workaround for CSR SPAs. **This approach is now deprecated.**
+
+- **Deprecated:** Serving pre-rendered HTML to Googlebot while serving JS-rendered content to users.
+- **Recommended instead:** Use SSR (Next.js, Nuxt) or SSG (Astro, 11ty) from the start.
+- If you still use dynamic rendering, plan a migration to SSR/SSG.
+
+> **Google states:** Dynamic rendering is a workaround, not a long-term solution. We recommend server-side rendering or static generation.
 
 ## Verification
 - **Rich Results Test:** [search.google.com/test/rich-results](https://search.google.com/test/rich-results) — Shows the rendered HTML as Google sees it.

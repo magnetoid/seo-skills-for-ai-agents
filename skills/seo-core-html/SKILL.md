@@ -1,7 +1,7 @@
 ---
 title: SEO Core HTML & Architecture Standards
-description: Rules for enforcing strict semantic HTML, crawlable navigation, correct heading integrity, and optimized media tags.
-version: 1.0.0
+description: Rules for enforcing strict semantic HTML, crawlable navigation, heading integrity, media optimization, and machine-readable dates.
+version: 2.0.0
 ---
 
 # SEO: Core HTML & Architecture Standards
@@ -107,7 +107,41 @@ Use this skill when:
 <p data-nosnippet>This text will NOT appear in snippets (e.g., disclaimers, boilerplate).</p>
 ```
 
-### 6. Google's Crawlable Link Rules
+### 6. Machine-Readable Dates
+- Use the `<time>` element with a `datetime` attribute for all dates.
+- Google uses this for byline dates, article freshness, and event times.
+
+```html
+<!-- ✅ CORRECT — Machine-readable date -->
+<time datetime="2025-01-15">January 15, 2025</time>
+
+<!-- ✅ CORRECT — Date with time -->
+<time datetime="2025-01-15T09:30:00-05:00">January 15, 2025, 9:30 AM EST</time>
+
+<!-- ❌ WRONG — Plain text, not machine-readable -->
+<span class="date">Jan 15</span>
+```
+
+### 7. Definition Lists for Structured Content
+- Use `<dl>`, `<dt>`, `<dd>` for key-value or term-definition content.
+- Preferred over plain text for specifications, glossaries, and metadata.
+
+```html
+<!-- ✅ CORRECT — Semantic definition list -->
+<dl>
+  <dt>Framework</dt>
+  <dd>Next.js 14</dd>
+  <dt>Language</dt>
+  <dd>TypeScript</dd>
+  <dt>Database</dt>
+  <dd>PostgreSQL</dd>
+</dl>
+
+<!-- ❌ WRONG — Plain text for structured data -->
+<p>Framework: Next.js 14, Language: TypeScript, Database: PostgreSQL</p>
+```
+
+### 8. Google's Crawlable Link Rules
 Per [Google's official guidance](https://developers.google.com/search/docs/crawling-indexing/links-crawlable), only the following link patterns are reliably crawlable:
 
 ```html

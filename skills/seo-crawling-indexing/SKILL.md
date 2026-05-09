@@ -1,7 +1,7 @@
 ---
 title: SEO Crawling & Indexing
-description: Instructions for preventing duplicate content, setting robots directives, and automating sitemap generation.
-version: 1.0.0
+description: Instructions for preventing duplicate content, setting robots directives, automating sitemaps, managing AI crawlers, and HTTP status codes.
+version: 2.0.0
 ---
 
 # SEO: Crawling & Indexing
@@ -63,6 +63,19 @@ Disallow: /account/
 Sitemap: https://example.com/sitemap.xml
 ```
 
+- **X-Robots-Tag HTTP header:** Use for non-HTML files (PDFs, images) or when you can't add meta tags.
+
+```http
+# HTTP response header
+X-Robots-Tag: noindex, nofollow
+```
+
+| Method | Use When |
+|---|---|
+| `<meta name="robots">` | HTML pages — most common |
+| `X-Robots-Tag` header | PDFs, images, or non-HTML resources |
+| `robots.txt Disallow` | Prevent crawling (but NOT indexing) |
+
 ### 3. Sitemap Automation
 - Ensure all public routes are included in `sitemap.xml`.
 - Include `<lastmod>` tags with ISO 8601 dates.
@@ -86,7 +99,30 @@ Sitemap: https://example.com/sitemap.xml
 </urlset>
 ```
 
-### 4. Outbound Link Qualification
+### 4. Sitemap Index Files (Large Sites)
+For sites with more than 50,000 URLs, use a sitemap index file:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://example.com/sitemap-pages.xml</loc>
+    <lastmod>2025-01-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://example.com/sitemap-blog.xml</loc>
+    <lastmod>2025-01-10</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://example.com/sitemap-products.xml</loc>
+    <lastmod>2025-01-12</lastmod>
+  </sitemap>
+</sitemapindex>
+```
+
+> **Limits:** Each sitemap file can contain max 50,000 URLs and must be under 50MB uncompressed. A sitemap index can reference up to 50,000 sitemaps.
+
+### 5. Outbound Link Qualification
 - Use `rel` attributes to tell Google your relationship with linked pages.
 - Regular editorial links don't need any `rel` attribute.
 

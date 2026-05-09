@@ -1,7 +1,7 @@
 ---
 title: SEO URL Structure & Internal Linking
 description: Rules for clean URL architecture, breadcrumbs, pagination, and optimal internal linking patterns.
-version: 1.0.0
+version: 2.0.0
 ---
 
 # SEO: URL Structure & Internal Linking

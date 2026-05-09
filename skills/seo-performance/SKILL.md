@@ -1,7 +1,7 @@
 ---
 title: SEO Performance & Core Web Vitals
-description: Rules for optimizing Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and Interaction to Next Paint (INP).
-version: 1.0.0
+description: Rules for optimizing Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP), mobile-first indexing, and page experience.
+version: 2.0.0
 ---
 
 # SEO: Performance & Core Web Vitals
@@ -90,6 +90,54 @@ Use this skill when:
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://cdn.example.com" crossorigin />
 <link rel="dns-prefetch" href="https://analytics.example.com" />
+```
+
+### 6. Mobile-First Indexing
+Google predominantly uses the **mobile version** of your page for indexing and ranking.
+
+- Always use responsive design with a viewport meta tag.
+- Ensure content parity — don't hide important content on mobile.
+- Don't lazy-load primary content that requires user interaction on mobile.
+- Tap targets must be at least 48×48px with adequate spacing.
+
+```html
+<!-- Required on every page -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```
+
+```css
+/* Ensure tap targets are large enough */
+a, button {
+  min-height: 48px;
+  min-width: 48px;
+}
+```
+
+> **Critical:** If content is hidden via CSS `display: none` on mobile, Google may not index it since it uses mobile-first indexing.
+
+### 7. HTTPS Requirement
+- HTTPS is a confirmed Google ranking signal and part of Page Experience.
+- Always serve all pages over HTTPS.
+- Avoid mixed content (loading HTTP resources on HTTPS pages).
+
+### 8. Intrusive Interstitials
+Google penalizes pages with intrusive popups that block content on mobile:
+
+- ❌ Full-screen popups before content loads
+- ❌ Standalone interstitials the user must dismiss
+- ✅ Cookie consent banners (legally required)
+- ✅ Age verification dialogs (legally required)
+- ✅ Small banners using reasonable screen space
+
+### 9. Google Discover Optimization
+To be eligible for [Google Discover](https://developers.google.com/search/docs/appearance/google-discover):
+
+- Use high-quality images at least **1200px wide**.
+- Set `max-image-preview:large` in robots meta tag.
+- Provide engaging, timely content.
+
+```html
+<meta name="robots" content="max-image-preview:large" />
 ```
 
 ## Verification

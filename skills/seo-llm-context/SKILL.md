@@ -1,7 +1,7 @@
 ---
 title: Advanced SEO AI Crawlers & Citations
-description: Instructions for optimizing content for Large Language Models (LLMs) and AI search bots.
-version: 1.0.0
+description: Instructions for optimizing content for LLMs, AI search bots, Google AI Overviews, and controlling AI crawler access.
+version: 2.0.0
 ---
 
 # Advanced SEO: AI Crawlers & Citations
@@ -83,6 +83,73 @@ export async function GET(request) {
 
   return renderFullPage(content);
 }
+```
+
+### 4. Google AI Overviews & AI Features
+Per [Google's AI features documentation](https://developers.google.com/search/docs/appearance/ai-features):
+
+- Google's AI Overviews use existing Search index content — no separate opt-in needed.
+- Content that ranks well in Search is eligible for AI Overviews.
+- To **opt out** of AI Overviews, use the `nosnippet` meta tag (this also removes your regular snippets).
+
+```html
+<!-- Opt out of AI Overviews AND regular snippets -->
+<meta name="robots" content="nosnippet" />
+
+<!-- Opt out of specific text being used -->
+<span data-nosnippet>This text won't appear in AI Overviews or snippets.</span>
+```
+
+> **Important:** There is no way to opt out of AI Overviews while keeping regular search snippets.
+
+### 5. AI Crawler Control via robots.txt
+Control which AI services can crawl your content:
+
+```txt
+# robots.txt — Control AI crawler access
+
+# Block Google's AI training crawler (does NOT affect Search indexing)
+User-agent: Google-Extended
+Disallow: /
+
+# Block OpenAI's crawler
+User-agent: GPTBot
+Disallow: /
+
+# Block Common Crawl
+User-agent: CCBot
+Disallow: /
+
+# Allow traditional Googlebot (required for Search)
+User-agent: Googlebot
+Allow: /
+```
+
+| Crawler | Company | Blocking Effect |
+|---|---|---|
+| `Google-Extended` | Google | Blocks use in Gemini/AI training; does NOT affect Google Search |
+| `GPTBot` | OpenAI | Blocks use in ChatGPT training |
+| `CCBot` | Common Crawl | Blocks Common Crawl datasets |
+| `anthropic-ai` | Anthropic | Blocks Claude training |
+| `Googlebot` | Google | **Never block** — required for Google Search indexing |
+
+> **Critical:** Blocking `Google-Extended` does NOT affect your Google Search rankings or AI Overviews. AI Overviews use Googlebot data.
+
+### 6. Structured Authorship for AI Attribution
+AI search engines are more likely to cite content with clear authorship signals:
+
+```html
+<!-- Author markup for AI citation -->
+<article>
+  <header>
+    <h1>Article Title</h1>
+    <address>
+      By <a rel="author" href="/authors/name">Author Name</a>,
+      <span>Senior Developer at Example Corp</span>
+    </address>
+  </header>
+  <!-- Content with inline citations -->
+</article>
 ```
 
 ## Verification

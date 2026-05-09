@@ -4,10 +4,10 @@
 
 **Expert-level SEO knowledge for AI coding assistants.**
 
-Semantic HTML · Core Web Vitals · Structured Data · JavaScript SEO · Ecommerce · International
+Semantic HTML · Core Web Vitals · Structured Data · E-E-A-T · JavaScript SEO · Ecommerce · International · AI Search
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-12-brightgreen.svg)](#-available-skills)
+[![Skills](https://img.shields.io/badge/Skills-14-brightgreen.svg)](#-available-skills)
 [![Google Aligned](https://img.shields.io/badge/Google%20Search%20Central-Aligned-4285F4.svg)](https://developers.google.com/search/docs)
 
 *Built by [IMBA Marketing](https://imbamarketing.com)*
@@ -65,18 +65,20 @@ Download this repository and copy the `skills/` directory + your IDE config file
 
 | # | Skill | Key Topics |
 |---|---|---|
-| 1 | **Core HTML & Architecture** | Semantic HTML, crawlable `<a href>` links, heading hierarchy, `data-nosnippet` |
-| 2 | **Crawling & Indexing** | Canonicals, robots directives, sitemaps, `rel=nofollow/sponsored/ugc`, snippet controls |
-| 3 | **Schema & Rich Snippets** | JSON-LD structured data, `WebSite` schema, sitelinks search box, `VideoObject` |
-| 4 | **AI Crawlers & Citations** | `llms.txt`, semantic citations, Markdown fallbacks for LLM crawlers |
-| 5 | **Performance & Core Web Vitals** | LCP, CLS, INP optimization, font loading, `fetchpriority`, resource hints |
-| 6 | **Meta Tags & Open Graph** | Title tags, meta descriptions, OG, Twitter Cards, favicon, site name, dates |
+| 1 | **Core HTML & Architecture** | Semantic HTML, crawlable `<a href>` links, heading hierarchy, `data-nosnippet`, `<time>` dates, `<dl>` lists |
+| 2 | **Crawling & Indexing** | Canonicals, robots/X-Robots-Tag, sitemaps, sitemap index files, `rel=nofollow/sponsored/ugc`, snippet controls |
+| 3 | **Schema & Rich Snippets** | JSON-LD structured data, `WebSite`/`Organization`/`Event` schema, sitelinks, `VideoObject`, `Speakable` |
+| 4 | **AI Crawlers & Citations** | `llms.txt`, semantic citations, Markdown fallbacks, Google AI Overviews, `Google-Extended` crawler control |
+| 5 | **Performance & Core Web Vitals** | LCP, CLS, INP, mobile-first indexing, HTTPS, interstitials, Google Discover, font loading, resource hints |
+| 6 | **Meta Tags & Open Graph** | Title tags/link control, meta descriptions, OG, Twitter Cards, favicon, site name, dates, Discover, `theme-color` |
 | 7 | **URL Structure & Internal Linking** | Clean URLs, breadcrumbs, pagination, redirects, internal link architecture |
 | 8 | **International & Multilanguage** | Hreflang (HTML/HTTP/sitemap), geotargeting, locale-adaptive pages, ISO codes |
 | 9 | **Accessibility** | ARIA roles, skip navigation, focus management, media accessibility |
-| 10 | **JavaScript SEO** | SPA rendering pipeline, History API, soft 404s, Web Components, fingerprinting |
+| 10 | **JavaScript SEO** | SPA rendering pipeline, History API, soft 404s, Web Components, fingerprinting, dynamic rendering deprecation |
 | 11 | **Image & Video SEO** | WebP/AVIF, responsive `<picture>`, `VideoObject` schema, media sitemaps |
 | 12 | **Ecommerce SEO** | Product URLs, variants, pagination, faceted nav, Merchant Center, Product schema |
+| 13 | **Content Quality & E-E-A-T** | Helpful content self-assessment, E-E-A-T signals, spam prevention, AI content policies, YMYL rules |
+| 14 | **Security & HTTPS** | HTTPS enforcement, security headers, mobile-first indexing, intrusive interstitials, page experience, Safe Browsing |
 
 ---
 
@@ -125,7 +127,9 @@ seo-skills-for-agents/
 │   ├── seo-accessibility/
 │   ├── seo-javascript/
 │   ├── seo-media/
-│   └── seo-ecommerce/               # + references/
+│   ├── seo-ecommerce/               # + references/
+│   ├── seo-content-quality/          # NEW: E-E-A-T & Helpful Content
+│   └── seo-security-https/           # NEW: HTTPS, Page Experience & Mobile-First
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
@@ -139,7 +143,9 @@ All skills are grounded in official documentation:
 
 | Source | Topics Covered |
 |---|---|
-| [Google Search Central](https://developers.google.com/search/docs) | Crawling, indexing, structured data, JavaScript SEO, ecommerce |
+| [Google Search Essentials](https://developers.google.com/search/docs/essentials) | Technical requirements, spam policies, content quality |
+| [Google Search Central](https://developers.google.com/search/docs) | Crawling, indexing, structured data, JavaScript SEO, ecommerce, AI features |
+| [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) | Fundamentals, helpful content, E-E-A-T |
 | [Schema.org](https://schema.org/) | Structured data vocabularies |
 | [web.dev](https://web.dev/) | Core Web Vitals, performance, rendering |
 | [W3C WAI](https://www.w3.org/WAI/) | Accessibility standards |
