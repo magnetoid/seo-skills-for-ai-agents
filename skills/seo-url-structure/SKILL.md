@@ -113,20 +113,51 @@ https://example.com/blog      ← no trailing slash
 - Use **302** (temporary) only when the move is genuinely temporary.
 - Never chain more than one redirect (A → B → C is bad; A → C is good).
 
+### 7. Hub-and-Spoke Internal Linking Architecture
+Structure internal links as topic clusters for topical authority:
+
+- **Hub page** links to all spoke (cluster) pages with descriptive anchor text.
+- **Every spoke** links back to the hub with a contextual anchor.
+- **Spokes interlink** to each other where the topics are related.
+- Use descriptive anchor text (not "click here") to pass topical context.
+
+```html
+<!-- Hub page linking to spokes -->
+<p>Learn more about
+  <a href="/seo/core-web-vitals">optimizing Core Web Vitals</a>,
+  <a href="/seo/schema-markup">implementing Schema markup</a>, and
+  <a href="/seo/javascript-seo">JavaScript SEO for SPAs</a>.
+</p>
+
+<!-- Spoke page linking back to hub -->
+<p>This is part of our comprehensive
+  <a href="/seo/technical-guide">Technical SEO Guide</a>.
+</p>
+```
+
+### 8. Orphan Page Detection
+Pages with **zero** incoming internal links are "orphan pages" and are unlikely to be indexed:
+
+- Audit your site regularly with a crawl tool to detect orphan pages.
+- Every content page must have at least one internal link pointing to it.
+- New content should be immediately linked from relevant existing pages.
+
 ## Verification
 - **URL audit:** Ensure all URLs are lowercase, hyphenated, and human-readable.
 - **Breadcrumb check:** Verify breadcrumbs appear on all sub-pages and schema validates.
 - **Internal link depth:** Use a crawl tool (Screaming Frog, Sitebulb) to verify all key pages are ≤ 3 clicks deep.
 - **Redirect chain check:** Verify no redirect chains exist using `curl -I` or a crawl tool.
+- **Orphan page check:** Verify no content pages have zero incoming internal links.
 
 ## Failure modes / debugging
 | Problem | Cause | Fix |
 |---|---|---|
 | Duplicate content from trailing slashes | Both `/blog` and `/blog/` return 200 | 301 redirect one version to the other |
-| Orphan pages not indexed | No internal links pointing to the page | Add contextual links from related content |
+| Orphan pages not indexed | No internal links pointing to the page | Add contextual links from related content; integrate into topic cluster |
 | "Click here" anchor text | Non-descriptive link text | Rewrite anchors to describe the linked content |
 | Redirect chains (3xx → 3xx) | Old migrations stacked on top of each other | Update all redirects to point directly to the final URL |
 | Mixed case URLs causing duplicates | Inconsistent casing in links | Lowercase all URLs; 301 redirect uppercase variants |
+| Topic cluster not ranking | Spokes don't link back to hub | Ensure bidirectional hub ↔ spoke links with descriptive anchors |
 
 ## Escalation
 - If a URL migration involves hundreds of redirects, consult an SEO engineer for redirect mapping and monitoring.

@@ -255,10 +255,116 @@ Mark content as suitable for text-to-speech with `speakable`:
 </script>
 ```
 
+### 10. Entity SEO via `@id` and `sameAs`
+Build entity confidence for Knowledge Panel eligibility and AI attribution:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://example.com/#organization",
+  "name": "Example Corp",
+  "url": "https://example.com",
+  "logo": "https://example.com/logo.png",
+  "sameAs": [
+    "https://www.wikidata.org/wiki/Q12345678",
+    "https://www.linkedin.com/company/examplecorp",
+    "https://twitter.com/examplecorp",
+    "https://www.crunchbase.com/organization/examplecorp",
+    "https://www.facebook.com/examplecorp"
+  ]
+}
+</script>
+```
+
+**Key Entity SEO rules:**
+- Use a persistent `@id` URI (e.g., `https://example.com/#organization`) and reference it consistently across all schema on the site.
+- Link `sameAs` to authoritative, verified profiles (Wikidata is strongest).
+- Ensure brand name, logo, and URL are identical across website, schema, and all external profiles.
+- Nest `author` within `Article` schema and reference a `Person` entity with its own `@id`.
+
+```html
+<!-- Cross-referencing entities across pages -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SEO Best Practices 2025",
+  "publisher": { "@id": "https://example.com/#organization" },
+  "author": {
+    "@type": "Person",
+    "@id": "https://example.com/#person-jane-smith",
+    "name": "Jane Smith",
+    "url": "https://example.com/authors/jane-smith",
+    "sameAs": [
+      "https://www.linkedin.com/in/janesmith",
+      "https://twitter.com/janesmith"
+    ]
+  }
+}
+</script>
+```
+
+### 11. LocalBusiness Schema
+For businesses with physical locations:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://example.com/#business",
+  "name": "Example Marketing Agency",
+  "image": "https://example.com/photos/storefront.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main Street",
+    "addressLocality": "San Francisco",
+    "addressRegion": "CA",
+    "postalCode": "94105",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  "telephone": "+1-555-123-4567",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ],
+  "priceRange": "$$"
+}
+</script>
+```
+
+### 12. Retired Schema Types (2025)
+Google retired rich result support for these schema types. Remove or deprioritize them:
+
+| Retired Schema | Status |
+|---|---|
+| Book Actions | No longer generates rich results |
+| Course Info | Deprecated |
+| Claim Review | Removed |
+| Estimated Salary | Removed |
+| Learning Video | Deprecated |
+| Special Announcement | Removed |
+| Vehicle Listing | Removed |
+| Practice Problem | Deprecated (Jan 2026) |
+
+> **Focus instead on high-impact schemas:** Organization, Product, Person, LocalBusiness, Article, Event, FAQ, HowTo, Breadcrumb, Video, Review Snippet.
+
 ## Verification
 - **JSON-LD validation:** Paste output into [Google Rich Results Test](https://search.google.com/test/rich-results) or [Schema.org Validator](https://validator.schema.org/).
 - **Content review:** Check if informational blocks start with a direct answer within the first ~50 words.
 - **HTML structure check:** Verify `<ul>`, `<ol>`, and `<table>` elements are used for structured data—not `<p>` with comma-separated text.
+- **Entity check:** Verify `@id` is consistent across all pages referencing the same entity.
 
 ## Failure modes / debugging
 | Problem | Cause | Fix |
@@ -267,7 +373,10 @@ Mark content as suitable for text-to-speech with `speakable`:
 | Schema not detected | JSON-LD syntax error (trailing commas, unescaped quotes) | Validate JSON with a linter before deploying |
 | No Featured Snippet despite good content | Answer not in first 40-50 words, or not using structured HTML | Restructure content using the inverted pyramid pattern |
 | Duplicate schema on page | Multiple components inject the same schema type | Centralize schema injection at the page/layout level |
+| Knowledge Panel not appearing | Low entity confidence, inconsistent `sameAs` | Ensure `@id`, `sameAs`, and brand name consistency across all profiles |
+| Retired schema not generating rich results | Google removed support in 2025 | Remove retired schemas, focus on high-impact types |
 
 ## Escalation
 - If the page requires a complex nested schema (e.g., `Product` with `AggregateRating`, `Offer`, and `Review`), consult the [Schema.org documentation](https://schema.org/) or a human SEO engineer.
 - If schema conflicts with CMS-generated structured data, escalate to the platform admin.
+- For Knowledge Panel disputes, use Google's [Knowledge Panel claim process](https://support.google.com/knowledgepanel/answer/7534842).

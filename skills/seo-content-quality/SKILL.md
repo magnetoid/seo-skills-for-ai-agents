@@ -180,12 +180,62 @@ Pages that could impact a person's health, financial stability, or safety requir
 </script>
 ```
 
+### 9. Topical Authority & Content Clusters
+Build "hub-and-spoke" content architecture to signal deep expertise:
+
+- **Hub page (Pillar):** A comprehensive, long-form guide covering a broad topic.
+- **Spoke pages (Clusters):** Deep-dive articles on specific subtopics that link back to the hub.
+- **Hub → Spokes:** Hub page links to all related cluster pages.
+- **Spokes → Hub:** Every cluster page links back to the hub with descriptive anchor text.
+- **Spokes ↔ Spokes:** Cross-link between cluster pages where logical.
+
+```
+Hub: "Complete Guide to Technical SEO"
+  ├── Spoke: "How to Optimize Core Web Vitals"
+  ├── Spoke: "JSON-LD Schema Implementation Guide"
+  ├── Spoke: "JavaScript SEO for SPAs"
+  ├── Spoke: "International SEO with Hreflang"
+  └── Spoke: "Image Optimization Best Practices"
+```
+
+> **Why it matters:** Google's Passage Ranking can rank individual sections of a page independently. A deeply interlinked cluster signals topical authority to both traditional Search and AI systems.
+
+### 10. Answer Engine Optimization (AEO) Content Structure
+Structure content for extraction by AI Overviews and answer engines:
+
+- **Atomic answer block:** Lead every section with a direct 40–60 word answer.
+- **Question-based headings:** Use H2/H3s that match natural language queries (e.g., "How does X affect Y?" instead of "Benefits").
+- **Short paragraphs:** Keep to 2–4 sentences per paragraph for clean passage extraction.
+- **Structured formats:** Use lists, tables, and numbered steps — AI extracts these significantly easier.
+- **Self-contained sections:** Each section should be complete enough to rank independently.
+
+```html
+<!-- ✅ AEO-optimized section -->
+<h2>What is Interaction to Next Paint (INP)?</h2>
+<p>
+  Interaction to Next Paint (INP) is a Core Web Vital that measures
+  a page's overall responsiveness to user interactions. A good INP
+  score is 200 milliseconds or less. It replaced First Input Delay
+  (FID) as the responsiveness metric in March 2024.
+</p>
+<!-- Then expand with details, examples, and context -->
+```
+
+### 11. Intent Purity
+Google rewards content that serves a single, well-defined user intent:
+
+- Don't mix educational, transactional, and navigational intent on the same page.
+- Create separate pages for "What is X?" (informational) vs. "Buy X" (transactional).
+- Align page content precisely with the search intent indicated by the query.
+
 ## Verification
 - **Content self-assessment:** Apply Google's self-assessment checklist before publishing.
 - **Author visibility:** Verify every article/page has a visible, linked author with credentials.
 - **Schema validation:** Validate `Article` and `Organization` schema at [Rich Results Test](https://search.google.com/test/rich-results).
 - **Spam check:** Ensure no patterns match Google's spam policies.
 - **Search Console:** Monitor for manual actions in Google Search Console.
+- **Cluster audit:** Verify all spoke pages link back to hub, and no orphan pages exist.
+- **AEO check:** Confirm each section starts with a direct answer within first 50 words.
 
 ## Failure modes / debugging
 | Problem | Cause | Fix |
@@ -195,6 +245,8 @@ Pages that could impact a person's health, financial stability, or safety requir
 | Content flagged as "thin" | Page lacks original, substantial value | Add unique insights, data, analysis, or expert commentary |
 | AI-generated content penalized | Mass-produced low-quality AI content | Apply human editing, fact-checking, and unique expertise |
 | Rankings dropped after core update | Content doesn't meet helpful content standards | Apply Google's self-assessment questions; improve E-E-A-T |
+| Not appearing in AI Overviews | Content not structured for extraction | Lead sections with atomic answers, use question-based H2/H3s |
+| Orphan content not ranking | Pages not linked from topic cluster | Integrate into hub-and-spoke architecture with proper internal links |
 
 ## Escalation
 - If content involves YMYL topics (health, finance, legal), consult a subject-matter expert for review.
@@ -206,3 +258,4 @@ Pages that could impact a person's health, financial stability, or safety requir
 - [Google: Spam policies](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Google: Guidance on using generative AI content](https://developers.google.com/search/docs/fundamentals/using-gen-ai-content)
 - [Google: Google Search ranking systems](https://developers.google.com/search/docs/appearance/ranking-systems-guide)
+- [Google: AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)

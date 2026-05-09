@@ -140,20 +140,109 @@ To be eligible for [Google Discover](https://developers.google.com/search/docs/a
 <meta name="robots" content="max-image-preview:large" />
 ```
 
+### 10. CSS `content-visibility` for Rendering Performance
+Skip rendering of off-screen content to drastically reduce initial load and INP:
+
+```css
+/* Apply to chunked, below-the-fold content sections */
+.blog-post,
+.comment-section,
+.product-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px; /* Prevent CLS with estimated height */
+}
+```
+
+> **Critical:** Always pair `content-visibility: auto` with `contain-intrinsic-size` to prevent layout shifts. Unlike `display: none`, content remains in the accessibility tree and is searchable.
+
+### 11. Advanced INP Optimization
+INP has three phases: **Input Delay**, **Processing Duration**, **Presentation Delay**.
+
+```javascript
+// ✅ Break long tasks with scheduler.yield() (modern)
+async function processData(items) {
+  for (const item of items) {
+    processItem(item);
+    // Yield to browser between iterations
+    if (navigator.scheduling?.isInputPending?.()) {
+      await scheduler.yield();
+    }
+  }
+}
+
+// ✅ Offload heavy computation to Web Workers
+const worker = new Worker('/workers/data-processor.js');
+worker.postMessage({ data: largeDataset });
+worker.onmessage = (e) => updateUI(e.data);
+
+// ✅ Debounce high-frequency events
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+window.addEventListener('scroll', debounce(handleScroll, 100));
+```
+
+**Key rules:**
+- Break tasks exceeding 50ms using `scheduler.yield()` or `setTimeout()`
+- Move heavy computations to **Web Workers** (off main thread)
+- Debounce/throttle `scroll`, `input`, `resize` events
+- Simplify DOM depth — deeply nested DOMs cause slower re-renders
+- Use `requestIdleCallback()` for non-critical work
+
+### 12. Speculation Rules API (Instant Navigation)
+Chrome's Speculation Rules API enables near-instant page transitions:
+
+```html
+<script type="speculationrules">
+{
+  "prerender": [
+    {
+      "where": { "href_matches": "/*" },
+      "eagerness": "moderate"
+    }
+  ],
+  "prefetch": [
+    {
+      "where": { "href_matches": "/*" },
+      "eagerness": "conservative"
+    }
+  ]
+}
+</script>
+```
+
+| Eagerness | When it triggers | Best for |
+|---|---|---|
+| `immediate` | As soon as rule is observed | Critical next pages |
+| `eager` | On hover (desktop) or touchstart | High-confidence links |
+| `moderate` | After 200ms hover | Navigation links |
+| `conservative` | On click/pointerdown | Lower-confidence links |
+
+> **SEO impact:** Prerendered pages load near-instantly, dramatically improving LCP for subsequent navigations.
+
 ## Verification
 - **Lighthouse audit:** Run Lighthouse in Chrome DevTools → Performance score ≥ 90.
 - **PageSpeed Insights:** Test live URL at [pagespeed.web.dev](https://pagespeed.web.dev/).
 - **Web Vitals extension:** Install the [Web Vitals Chrome extension](https://chrome.google.com/webstore/detail/web-vitals/) for real-time monitoring.
 - **CrUX dashboard:** Check field data in [Chrome UX Report](https://developer.chrome.com/docs/crux/).
+- **Chrome DevTools Performance panel:** Profile interactions to identify Long Tasks causing INP issues.
 
 ## Failure modes / debugging
 | Problem | Cause | Fix |
 |---|---|---|
 | LCP > 2.5s | Hero image not preloaded, large unoptimized images | Add `fetchpriority="high"`, convert to WebP/AVIF, preload LCP resource |
 | CLS > 0.1 | Images without dimensions, late-loading ads or fonts | Set `width`/`height` on all media, reserve space for dynamic content |
-| INP > 200ms | Long JavaScript tasks blocking main thread | Split tasks with `requestIdleCallback`, defer non-critical scripts |
+| INP > 200ms | Long JavaScript tasks blocking main thread | Use `scheduler.yield()`, Web Workers, debounce events |
+| INP > 200ms (DOM) | Deeply nested DOM with 1000+ elements | Flatten DOM structure, use `content-visibility: auto` for off-screen sections |
 | FOIT (Flash of Invisible Text) | Font loading blocks text render | Use `font-display: swap` and preload font files |
+| CLS from `content-visibility` | Missing `contain-intrinsic-size` | Always pair with `contain-intrinsic-size: auto <estimated-height>` |
+| Third-party script blocking | Analytics/ads blocking main thread | Defer with `async`/`defer`, load on user interaction |
 
 ## Escalation
 - If Core Web Vitals require infrastructure changes (CDN configuration, server response times), consult a DevOps or platform engineer.
 - If third-party scripts (ads, analytics) are the primary bottleneck, escalate to the vendor or ad ops team.
+- If INP issues persist despite optimization, use Chrome DevTools LoAF (Long Animation Frames) API for granular profiling.

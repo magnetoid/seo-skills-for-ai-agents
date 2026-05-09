@@ -179,11 +179,47 @@ For sites with more than 50,000 URLs, use a sitemap index file:
 | `503` | Temporary unavailability — Google retries later |
 | `429` | Too many requests — Google slows crawl rate |
 
+### 7. IndexNow Protocol (Non-Google Engines)
+IndexNow provides instant URL discovery for Bing, Yandex, Naver, and Seznam.cz. **Google does NOT support IndexNow.**
+
+```bash
+# Notify Bing of a new/updated URL
+curl -X POST "https://api.indexnow.org/indexnow" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "host": "example.com",
+    "key": "your-api-key",
+    "urlList": [
+      "https://example.com/new-page",
+      "https://example.com/updated-page"
+    ]
+  }'
+```
+
+| Engine | IndexNow Support | Alternative for Google |
+|---|---|---|
+| **Bing** | ✅ Supported | — |
+| **Yandex** | ✅ Supported | — |
+| **Naver** | ✅ Supported | — |
+| **Google** | ❌ Not supported | Use sitemaps + Search Console + internal linking |
+
+### 8. Google's Selective Indexing
+Google's indexing is now selective — not every URL gets indexed:
+
+- Content must meet E-E-A-T standards to justify the "computational cost" of indexing.
+- Orphan pages (no internal links) are significantly less likely to be indexed.
+- Thin, duplicate, or low-value pages may be discovered but not indexed.
+- Focus on: high-quality content + proper internal linking + sitemap inclusion.
+
+> **If pages aren't being indexed:** It's rarely a technical issue solvable by an API push. It's almost always a content quality or site authority issue.
+
 ## Verification
 - **Route inspection:** Ensure every public page has a valid self-referencing canonical tag.
 - **Source code validation:** Verify private/user-state routes contain `noindex, nofollow`.
 - **robots.txt check:** Confirm `robots.txt` exists, allows public routes, and blocks private ones.
 - **Sitemap validation:** Ensure `sitemap.xml` builds correctly, contains only public URLs, and dynamically updates `<lastmod>`.
+- **Index coverage:** Monitor Google Search Console "Pages" report for indexing issues.
+- **IndexNow:** If implemented, verify key file is accessible at `https://example.com/{key}.txt`.
 
 ## Failure modes / debugging
 | Problem | Cause | Fix |
@@ -193,7 +229,10 @@ For sites with more than 50,000 URLs, use a sitemap index file:
 | Sitemap returns 404 | Not generated during build or wrong path | Verify build pipeline generates `sitemap.xml` at the root |
 | Stale `<lastmod>` dates | Hardcoded dates instead of dynamic values | Use content last-modified timestamps from CMS or file system |
 | Crawl budget waste | Too many low-value URLs in sitemap | Exclude pagination, filters, and utility pages from sitemap |
+| Pages discovered but not indexed | Low content quality or no internal links | Improve E-E-A-T signals, add internal links, ensure unique value |
+| X-Robots-Tag not working | Header not set on server response | Verify with `curl -I <URL>` that the header appears in response |
 
 ## Escalation
 - If the site has thousands of dynamic URLs and crawl budget is an issue, consult a human SEO engineer for pagination strategy and sitemap index files.
 - If canonical tags conflict with CMS-generated canonicals (e.g., Shopify, WordPress), escalate to the platform admin.
+- If persistent indexing issues exist despite quality content, use Search Console's URL Inspection tool and request indexing manually.
