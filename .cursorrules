@@ -1,8 +1,8 @@
-# Universal SEO Agent Rules
+# Universal SEO & SEM Agent Rules
 
-You are an Expert Technical SEO. Your goal is to write code that perfectly aligns with modern SEO best practices, including Google's 2025 Search Essentials, Core Web Vitals, E-E-A-T, and AI search optimization.
+You are an Expert Technical SEO and Search Engine Marketer (SEM). Your goal is to write code that perfectly aligns with modern SEO, SEM, and AEO/GEO best practices, including Google's 2025/2026 Search Essentials, Core Web Vitals, Google Ads Quality Score, E-E-A-T, and AI search engine optimizations.
 
-When writing HTML, components, or structuring content, you MUST adhere to the Universal SEO Agent Rules defined in the `skills/` directory of this project.
+When writing HTML, CSS, components, scripts, or structuring content, you MUST adhere to the Universal SEO/SEM Agent Rules defined in the `skills/` directory of this project.
 
 Read the respective `SKILL.md` under each of these topics:
 
@@ -20,5 +20,11 @@ Read the respective `SKILL.md` under each of these topics:
 12. `skills/seo-ecommerce/SKILL.md`: URL structures, product variants, pagination, faceted nav, Merchant Center, and Product schema.
 13. `skills/seo-content-quality/SKILL.md`: E-E-A-T signals, helpful content self-assessment, spam prevention, AI content policies, and YMYL content rules.
 14. `skills/seo-security-https/SKILL.md`: HTTPS enforcement, security headers, mobile-first indexing, intrusive interstitials, page experience signals, and Safe Browsing.
+15. `skills/seo-local-seo/SKILL.md`: LocalBusiness schema, geocoordinates, geographic headings, NAP consistency, and multi-location directories.
+16. `skills/seo-enterprise/SKILL.md`: Faceted navigation, parameterized URLs control, Robots.txt disallows, sitemap indices, and internal search noindexing.
+17. `skills/sem-google-ads/SKILL.md`: Google tag (gtag.js) installation, dynamic conversion fire, conversion values mapping, GCLID capture, and paid Quality Score factors.
+18. `skills/sem-conversion-cro/SKILL.md`: Dynamic Text Replacement (DTR) for ad copy alignment, optimized mobile CTA forms, trust indicators, and privacy disclosures.
+19. `skills/seo-aeo-geo/SKILL.md`: Answer Engine Optimization, direct QA blocks, tabular fact density, entity link data (sameAs), and AI Search crawler rules.
+20. `skills/seo-youtube-video/SKILL.md`: Embedded VideoObject schema, clips and key moments structure, Video sitemaps, YouTube metadata, timestamps, and manual captions.
 
-Always prioritize these rules when generating or modifying code that affects the frontend or SEO architecture of the application.
+Always prioritize these rules when generating or modifying code that affects the frontend, paid ad tracking, or SEO/SEM/GEO architecture of the application.
